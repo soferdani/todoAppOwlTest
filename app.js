@@ -48,7 +48,8 @@
 
 	const APP_TEMPLATE = xml/* xml */ `
       <div class="todo-app">
-          <input placeholder="Enter a new task" t-on-keyup="addTask" t-ref="add-input"/>
+        <h1>Todos</h1>
+          <input class="new-todo" autofocus="true" autocomplete="off" placeholder="What needs to be done?" t-on-keyup="addTask" t-ref="add-input"/>
           <div class="task-list">
               <Task t-foreach="displayedTasks" t-as="task" t-key="task.id" task="task"/>
           </div>
