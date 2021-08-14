@@ -6,8 +6,25 @@
 }
 
 .task {
-	font-size: 18px;
-	color: #111111;
+  font-size: 18px;
+  color: #111111;
+  display: grid;
+  grid-template-columns: 30px auto 30px;
+}
+
+
+.task > input {
+  margin: auto;
+}
+
+.task:hover .delete {
+  opacity: 1;
+}
+
+.delete {
+  opacity: 0;
+  cursor: pointer;
+  text-align: center;
 }
 
 
