@@ -5,19 +5,23 @@ const { useRef, useState } = owl.hooks;
 
 const TASK_TEMPLATE = xml/* xml */ `
 <div class="task" t-att-class="props.task.isCompleted ? 'done' : ''">
-<input type="checkbox" t-att-checked="props.task.isCompleted"/>
+<input type="checkbox" t-att-checked="props.task.isCompleted" t-on-click="toggleTask"/>
 <span><t t-esc="props.task.title"/></span>
 </div>`;
 
 class Task extends Component {
 	static template = TASK_TEMPLATE;
 	static props = ["task"];
+
+	toggleTask() {
+		this.trigger("toggle-task", { id: this.props.task.id });
+	}
 }
 
 const APP_TEMPLATE = xml/* xml */ `
 <div class="todo-app">
 <input placeholder="Enter a new task" t-on-keyup="addTask" t-ref="add-input" />
-<div class="task-list">
+<div class="task-list" t-on-toggle-task="toggleTask" >
     <t t-foreach="tasks" t-as="task" t-key="task.id">
         <Task task="task"/>
     </t>
@@ -54,6 +58,10 @@ class App extends Component {
 		}
 	}
 
+	toggleTask(ev) {
+		const task = this.tasks.find((t) => t.id === ev.detail.id);
+		task.isCompleted = !task.isCompleted;
+	}
 }
 
 function setup() {
